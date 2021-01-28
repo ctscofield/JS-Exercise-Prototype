@@ -39,12 +39,27 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person() {
-    
+ function Person(name, age) {
+      this.name = name;
+      this.age = age;
+      this.stomach = [];
+  }
+
+  Person.prototype.eat = function(someFood){
+    if(this.stomach.length < 10){
+      this.stomach.push(someFood);
+    }    
+  }
+  Person.prototype.stomach = function(){
+    this.stomach = [];
   }
  
- 
-
+  Person.prototype.poop = function(){
+    this.stomach = [];
+  }
+ Person.prototype.toString = function(){
+   return `${this.name}, ${this.age}`;
+ }
   
   
   
@@ -63,8 +78,14 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+ function Car(model, milesPerGallon, tank, odometer) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  Car.prototype.fill = function(gallons){
+    this.tank = this.tank + gallons;
   }
   
   
@@ -75,18 +96,26 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
-  }
+ function Baby(name, age, favoriteToy) { 
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
+ }
+
+ Baby.prototype = Object.create(Person.prototype);
+
+ Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}, ${this.favoriteToy} being the favorite toy.`
+ }
+ 
  
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. There's window/global binding and that makes it so "this" will be all of that.
+    2. There's Implicit binding and thats when "this" is right before the function is called with a ".".
+    3. There's New Binding and that is used with constructor functions when "this" refers to an object created and returned by the constructor function.
+    4. And there's Explicit Binding and thats used whenever the call or apply method are used.
   */
   
   
